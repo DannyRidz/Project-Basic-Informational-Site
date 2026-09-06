@@ -1,29 +1,33 @@
 # Basic Informational Site
 
-This is a small Node.js project I built as part of [The Odin Project](https://www.theodinproject.com/lessons/nodejs-basic-informational-site).
+This is a small Express project I built as part of [The Odin Project](https://www.theodinproject.com/lessons/nodejs-basic-informational-site).
 
-The goal was to learn how a basic web server works without using a framework. The server reads the requested URL, chooses the correct HTML file, and sends it back to the browser. If the route does not exist, it displays a custom 404 page.
+I originally created this site using Node's built-in HTTP module. I later rewrote the server with Express to learn how a framework can make routing and sending responses simpler.
+
+The server checks the requested route, sends the matching HTML page, and displays a custom 404 page when the route does not exist.
 
 ## Pages
 
 - `/` — home page
 - `/about` — about page
 - `/contact-me` — contact page
-- Any other route — 404 page
+- Any other route — custom 404 page
 
 ## What I learned
 
-- How to create an HTTP server with Node.js
-- How to route URLs using `request.url`
-- How to read and return files with the `fs` module
-- How to build file paths with the `path` module
-- How to send appropriate HTTP status codes such as `200`, `404`, and `500`
+- How to initialize a Node project with npm
+- How to install and use Express
+- How to create routes with `app.get()`
+- How to send HTML files with `res.sendFile()`
+- How Express middleware processes requests in order
+- How to create a custom 404 handler
+- How to use Node's watch mode during development
 
 ## Running the project locally
 
 You will need [Node.js](https://nodejs.org/) installed.
 
-1. Clone this repository:
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/DannyRidz/Project-Basic-Informational-Site.git
@@ -35,13 +39,25 @@ You will need [Node.js](https://nodejs.org/) installed.
    cd Project-Basic-Informational-Site
    ```
 
-3. Start the server:
+3. Install the dependencies:
 
    ```bash
-   node index.js
+   npm install
    ```
 
-4. Visit [http://localhost:8080](http://localhost:8080) in your browser.
+4. Start the server:
+
+   ```bash
+   npm start
+   ```
+
+5. Visit [http://localhost:8080](http://localhost:8080) in your browser.
+
+For development, start the server in watch mode:
+
+```bash
+npm run dev
+```
 
 To stop the server, press `Ctrl+C` in the terminal.
 
@@ -49,3 +65,4 @@ To stop the server, press `Ctrl+C` in the terminal.
 
 - HTML
 - Node.js
+- Express
