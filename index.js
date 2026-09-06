@@ -1,42 +1,30 @@
-const http = require("node:http");
-const fs = require("node:fs");
+const express = require("express");
 const path = require("node:path");
 
-const server = http.createServer((request, response) => {
-  let fileName;
-  let statusCode = 200;
+const app = express();
 
-  switch (request.url) {
-    case "/":
-      fileName = "index.html";
-      break;
-    case "/about":
-      fileName = "about.html";
-      break;
-    case "/contact-me":
-      fileName = "contact-me.html";
-      break;
-    default:
-      fileName = "404.html";
-      statusCode = 404;
-  }
-
-  const filePath = path.join(__dirname, fileName);
-
-  fs.readFile(filePath, (error, content) => {
-    if (error) {
-      response.writeHead(500, { "Content-Type": "text/plain" });
-      response.end("Internal Server Error");
-      return;
-    }
-
-    response.writeHead(statusCode, { "Content-Type": "text/html" });
-    response.end(content);
-  });
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-const PORT = 8080;
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "about.html"));
+});
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+app.get("/contact-me", (req, res) => {
+  res.sendFile(path.join(__dirname, "contact-me.html"));
+});
+
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, "404.html"));
+});
+
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, (error) => {
+  if (error) {
+    throw error;
+  }
+
+  console.log(`Express server running at http://localhost:${PORT}`);
 });
